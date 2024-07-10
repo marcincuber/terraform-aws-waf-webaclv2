@@ -2541,6 +2541,7 @@ resource "aws_wafv2_web_acl" "main" {
           content {
             limit              = lookup(rate_based_statement.value, "limit")
             aggregate_key_type = lookup(rate_based_statement.value, "aggregate_key_type", "IP")
+            evaluation_window_sec = lookup(rate_based_statement.value, "evaluation_window_sec", "300")
 
             dynamic "forwarded_ip_config" {
               for_each = length(lookup(rate_based_statement.value, "forwarded_ip_config", {})) == 0 ? [] : [lookup(rate_based_statement.value, "forwarded_ip_config", {})]
